@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.storage.CacheResetOnProcessCanceled.enabled
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -6,6 +8,10 @@ plugins {
 android {
     namespace = "com.example.android_6th"
     compileSdk = 34
+
+    viewBinding {
+        enable = true
+    }
 
     defaultConfig {
         applicationId = "com.example.android_6th"
@@ -32,10 +38,6 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
-    }
-
-    viewBinding {
-        enable = true
     }
 }
 
