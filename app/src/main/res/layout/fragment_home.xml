@@ -18,7 +18,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintEnd_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-
             />
 
 
@@ -92,7 +91,7 @@
             android:textSize="12sp"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="12dp"
-            app:layout_constraintBottom_toTopOf="@id/home_pannel_album_img.iv"
+            app:layout_constraintBottom_toTopOf="@id/home_pannel_album2_img.iv"
             app:layout_constraintStart_toStartOf="parent"
             />
 
@@ -108,6 +107,17 @@
 
             />
 
+        <ImageView
+            android:id="@+id/home_pannel_album2_img.iv"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/img_album_exp"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/home_pannel_album_img.iv"
+
+            />
         <TextView
             android:id="@+id/home_pannel_title_iv"
             android:layout_width="wrap_content"
@@ -122,6 +132,18 @@
             />
 
         <TextView
+            android:id="@+id/home_pannel_title2_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="In My Bed"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_marginStart="15dp"
+            app:layout_constraintStart_toEndOf="@id/home_pannel_album2_img.iv"
+            app:layout_constraintTop_toTopOf="@id/home_pannel_album2_img.iv"
+
+            />
+        <TextView
             android:id="@+id/home_pannel_singer_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -131,6 +153,18 @@
             android:layout_marginStart="15dp"
             app:layout_constraintStart_toEndOf="@id/home_pannel_album_img.iv"
             app:layout_constraintBottom_toBottomOf="@id/home_pannel_album_img.iv"
+            />
+
+        <TextView
+            android:id="@+id/home_pannel_singer2_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="bear"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_marginStart="15dp"
+            app:layout_constraintStart_toEndOf="@id/home_pannel_album2_img.iv"
+            app:layout_constraintBottom_toBottomOf="@id/home_pannel_album2_img.iv"
             />
 
         <TextView
@@ -206,11 +240,11 @@
             android:id="@+id/home_pannel_elbum1.iv"
             android:layout_width="140dp"
             android:layout_height="140dp"
-            android:src="@drawable/img_album_exp"
-            app:layout_constraintTop_toBottomOf="@id/home_pannel_todaymusic_iv"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/img_album_exp2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/home_pannel_todaymusic_iv"
 
             />
 
@@ -218,7 +252,7 @@
             android:id="@+id/home_pannel_elbum2.iv"
             android:layout_width="140dp"
             android:layout_height="140dp"
-            android:src="@drawable/img_album_exp"
+            android:src="@drawable/img_album_exp2"
             app:layout_constraintTop_toBottomOf="@id/home_pannel_todaymusic_iv"
             app:layout_constraintStart_toEndOf="@id/home_pannel_elbum1.iv"
             android:layout_marginTop="10dp"
@@ -230,7 +264,7 @@
             android:id="@+id/home_pannel_elbum3.iv"
             android:layout_width="140dp"
             android:layout_height="140dp"
-            android:src="@drawable/img_album_exp"
+            android:src="@drawable/img_album_exp2"
             app:layout_constraintTop_toBottomOf="@id/home_pannel_todaymusic_iv"
             app:layout_constraintStart_toEndOf="@id/home_pannel_elbum2.iv"
             android:layout_marginTop="10dp"
@@ -575,7 +609,7 @@
             app:layout_constraintTop_toBottomOf="@id/home_pannel_yanolja.iv"
             app:layout_constraintStart_toStartOf="parent"
             android:src="@drawable/ic_main_facebook"
-            android:layout_marginStart="120dp"
+            android:layout_marginStart="100dp"
             android:layout_marginTop="20dp"
             />
 
@@ -613,6 +647,7 @@
             />
 
         <TextView
+            android:id="@+id/home_pannel_aboutcompany_iv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="17sp"

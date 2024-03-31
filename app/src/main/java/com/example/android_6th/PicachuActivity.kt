@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.android_6th.databinding.FragmentHomeBinding
 
-class HomeFragment : Fragment() {
+class PicachuActivity : Fragment() {
 
     lateinit var binding: FragmentHomeBinding
 
