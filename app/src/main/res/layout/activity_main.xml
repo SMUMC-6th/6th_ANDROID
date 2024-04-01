@@ -101,7 +101,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:itemIconSize="20dp"
-        app:itemIconTint="@drawable/btm_color_selector"
+        app:itemIconTint="@color/black"
         app:itemTextColor="@drawable/btm_color_selector"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
