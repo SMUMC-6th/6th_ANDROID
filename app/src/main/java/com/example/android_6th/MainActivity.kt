@@ -41,6 +41,10 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.homeFragment -> {
                     supportFragmentManager.beginTransaction()
+                        .setCustomAnimations(
+                            R.anim.fade_in,
+                            R.anim.fade_out
+                        )
                         .replace(R.id.main_frm, HomeFragment())
                         .commitAllowingStateLoss()
                     return@setOnItemSelectedListener true
@@ -48,18 +52,30 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.lookFragment -> {
                     supportFragmentManager.beginTransaction()
+                        .setCustomAnimations(
+                            R.anim.fade_in,
+                            R.anim.fade_out
+                        )
                         .replace(R.id.main_frm, LookFragment())
                         .commitAllowingStateLoss()
                     return@setOnItemSelectedListener true
                 }
                 R.id.searchFragment -> {
                     supportFragmentManager.beginTransaction()
+                        .setCustomAnimations(
+                            R.anim.slide_in_right,
+                            R.anim.slide_out_left
+                        )
                         .replace(R.id.main_frm, SearchFragment())
                         .commitAllowingStateLoss()
                     return@setOnItemSelectedListener true
                 }
                 R.id.lockerFragment -> {
                     supportFragmentManager.beginTransaction()
+                        .setCustomAnimations(
+                            R.anim.slide_in_right,
+                            R.anim.slide_out_left
+                        )
                         .replace(R.id.main_frm, LockerFragment())
                         .commitAllowingStateLoss()
                     return@setOnItemSelectedListener true
