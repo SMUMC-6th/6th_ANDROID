@@ -33,18 +33,19 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/main_mainplayer_title_tv"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="13sp"
-                android:text="제목"
-                android:textColor="@color/black" />
+                android:text="라일락"
+                android:textColor="@color/black"
+                android:textSize="13sp" />
 
             <TextView
+                android:id="@+id/main_mainplayer_singer_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
-
-                android:text="가수"/>
+                android:text="아이유 (IU)"/>
 
         </LinearLayout>
 
@@ -99,8 +100,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:itemIconSize="20dp"
-        app:itemIconTint="@drawable/btm_color_selector"
-        app:itemTextColor="@drawable/btm_color_selector"
+        app:itemIconTint="@drawable/bottom_navigation_color"
+        app:itemTextColor="@drawable/bottom_navigation_color"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
