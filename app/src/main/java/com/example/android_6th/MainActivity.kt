@@ -53,8 +53,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.lookFragment -> {
                     supportFragmentManager.beginTransaction()
                         .setCustomAnimations(
-                            R.anim.fade_in,
-                            R.anim.fade_out
+                            R.anim.slide_in_right,
+                            R.anim.slide_out_left
                         )
                         .replace(R.id.main_frm, LookFragment())
                         .commitAllowingStateLoss()

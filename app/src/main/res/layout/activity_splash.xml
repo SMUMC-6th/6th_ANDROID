@@ -11,7 +11,7 @@
         android:id="@+id/img_carrotmarket"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/img_carrotmarket"
+        android:src="@drawable/img_star_sky"
         android:scaleType="centerCrop"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
