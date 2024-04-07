@@ -17,6 +17,7 @@ class SongActivity : AppCompatActivity() {
         binding = ActivitySongBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //미니플레이어 노래 제목 데이터 Main에 전달
         binding.songDownIb.setOnClickListener{
             val intent = Intent(this, MainActivity::class.java).apply{
                 putExtra(MainActivity.STRING_INTENT_KEY, intent.getStringExtra("title"))
