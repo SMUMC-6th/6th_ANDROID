@@ -167,6 +167,7 @@
             app:layout_constraintBottom_toBottomOf="@id/home_pannel_album2_img.iv"
             />
 
+
         <TextView
             android:id="@+id/home_pannel_todaymusic_iv"
             android:layout_width="wrap_content"
@@ -199,7 +200,7 @@
             android:textColor="@color/gray_color"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/home_pannel_background_iv"
-            app:layout_constraintEnd_toEndOf="@id/home_pannel_background_iv"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
             android:textSize="17sp"
@@ -235,7 +236,7 @@
 
             />
 
-
+<!--
         <ImageView
             android:id="@+id/home_pannel_elbum1.iv"
             android:layout_width="140dp"
@@ -349,16 +350,25 @@
             android:textColor="@color/gray_color"
             app:layout_constraintTop_toBottomOf="@id/home_pannel_Elbum1title_iv"
             app:layout_constraintStart_toStartOf="@id/home_pannel_Elbum1title_iv"
-            />
+            />-->
 
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/home_today_music_album_iv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            app:layout_constraintTop_toBottomOf="@id/home_pannel_todaymusic_iv"
+
+            />
 
         <ImageView
             android:id="@+id/home_pannel_letmeknow.iv"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:src="@drawable/img_home_viewpager_exp"
-            app:layout_constraintTop_toBottomOf="@id/home_pannel_elbum1singer.iv"
-            app:layout_constraintStart_toStartOf="@id/home_pannel_elbum1singer.iv"
+            app:layout_constraintTop_toBottomOf="@id/home_today_music_album_iv"
+            app:layout_constraintStart_toStartOf="@id/home_today_music_album_iv"
 
             />
 

@@ -8,9 +8,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.android_6th.databinding.ActivitySongBinding
 import com.example.android_6th.databinding.FragmentAlbumBinding
+import com.google.gson.Gson
+import kotlinx.coroutines.awaitAll
 
 class AlbumFragment : Fragment() {
 
+    private var gson: Gson = Gson()
     lateinit var binding : FragmentAlbumBinding
 
     override fun onCreateView(
@@ -19,6 +22,10 @@ class AlbumFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAlbumBinding.inflate(inflater,container,false)
+
+        val albumJson = arguments?.getString("album")
+        val album = gson.fromJson(albumJson,Album::class.java)
+        setInit(album)
 
         binding.albumBackIv.setOnClickListener {
 
@@ -31,5 +38,13 @@ class AlbumFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun setInit(album: Album?) {
+        binding.albumAlbumIv.setImageResource(album?.coverImg!!)
+        binding.albumMusicTitleTv.text = album.title.toString()
+        binding.albumSingerNameTv.text = album.singer.toString()
+
+
     }
 }
