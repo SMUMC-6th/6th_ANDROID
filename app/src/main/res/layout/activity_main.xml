@@ -13,6 +13,23 @@
         app:layout_constraintBottom_toTopOf="@id/main_player_cl"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <SeekBar
+        android:id="@+id/main_miniplayer_progress_sb"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@null"
+        android:paddingEnd="0dp"
+        android:paddingStart="0dp"
+        android:layout_marginBottom="-3dp"
+        android:progressBackgroundTint="@color/song_player_bg"
+        android:progressTint="@color/song_player"
+        android:progress="0"
+        android:max="100000"
+        android:thumb="@color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/main_player_cl" />
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main_player_cl"
@@ -48,7 +65,9 @@
                 android:text="아이유 (IU)"
                 android:textSize="12sp" />
 
+
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -57,6 +76,20 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:gravity="center_vertical">
+
+            <Button
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:onClick="serviceStart"
+                android:text="ON"
+                android:textSize="10sp" />
+
+            <Button
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:onClick="serviceStop"
+                android:text="OFF"
+                android:textSize="10sp" />
 
             <ImageView
                 android:layout_width="40dp"
@@ -88,6 +121,7 @@
                 android:layout_height="25dp"
                 android:src="@drawable/btn_miniplayer_go_list"
                 android:layout_marginHorizontal="15dp" />
+
 
 
         </LinearLayout>
