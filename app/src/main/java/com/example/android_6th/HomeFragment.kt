@@ -30,11 +30,11 @@ class HomeFragment : Fragment() {
 
         albumDates.apply{
             add(Album("Butter","방탄소년단",R.drawable.img_album_exp))
-            add(Album("electronis","전자기학",R.drawable.img_album_exp2))
-            add(Album("psycho","심리학",R.drawable.img_album_exp3))
-            add(Album("suncream","햇빛",R.drawable.img_album_exp4))
-            add(Album("volt","충전기",R.drawable.img_album_exp5))
-            add(Album("bottle","물병",R.drawable.img_album_exp6))
+            add(Album("electronis","아이유",R.drawable.img_album_exp2))
+            add(Album("psycho","오혁",R.drawable.img_album_exp3))
+            add(Album("suncream","혁오밴드",R.drawable.img_album_exp4))
+            add(Album("volt","김민",R.drawable.img_album_exp5))
+            add(Album("bottle","박태정",R.drawable.img_album_exp6))
         }
 
 

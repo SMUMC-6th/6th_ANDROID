@@ -27,6 +27,18 @@ class LockerFragment : Fragment() {
             add(Locker("탕수육","중국집",R.drawable.img_album_exp4))
             add(Locker("비타500","롯데",R.drawable.img_album_exp5))
             add(Locker("치약","민트초코",R.drawable.img_album_exp6))
+            add(Locker("제육볶음","아이유",R.drawable.img_album_exp))
+            add(Locker("치킨","치킨집 사장님",R.drawable.img_album_exp2))
+            add(Locker("피자","미스터피자",R.drawable.img_album_exp3))
+            add(Locker("탕수육","중국집",R.drawable.img_album_exp4))
+            add(Locker("비타500","롯데",R.drawable.img_album_exp5))
+            add(Locker("치약","민트초코",R.drawable.img_album_exp6))
+            add(Locker("제육볶음","아이유",R.drawable.img_album_exp))
+            add(Locker("치킨","치킨집 사장님",R.drawable.img_album_exp2))
+            add(Locker("피자","미스터피자",R.drawable.img_album_exp3))
+            add(Locker("탕수육","중국집",R.drawable.img_album_exp4))
+            add(Locker("비타500","롯데",R.drawable.img_album_exp5))
+            add(Locker("치약","민트초코",R.drawable.img_album_exp6))
 
         }
 
