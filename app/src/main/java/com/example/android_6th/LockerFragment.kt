@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android_6th.databinding.FragmentLockerBinding
+import com.google.android.material.tabs.TabLayoutMediator
 
 class LockerFragment : Fragment() {
 
     lateinit var binding: FragmentLockerBinding
     private var lockerDates = ArrayList<Locker>()
+    private var information = arrayListOf("저장한 곡", "음악파일")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,23 +45,28 @@ class LockerFragment : Fragment() {
         }
 
 
+//        리사이클러 뷰
+//        val lockerRVAdapter = LockerRVAdapter(lockerDates)
+//        binding.homeLockerMusicAlbumIv.adapter = lockerRVAdapter
+//        binding.homeLockerMusicAlbumIv.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL, false)
+//
+//        lockerRVAdapter.setMyItemClickListener(object: LockerRVAdapter.MyItemClickListener{
+//            override fun onItemClick() {
+//
+//            }
+//
+//            override fun onRemoveLocker(position: Int) {
+//                lockerRVAdapter.removeItem(position)
+//            }
+//
+//        })
 
-        val lockerRVAdapter = LockerRVAdapter(lockerDates)
-        binding.homeLockerMusicAlbumIv.adapter = lockerRVAdapter
-        binding.homeLockerMusicAlbumIv.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL, false)
-
-        lockerRVAdapter.setMyItemClickListener(object: LockerRVAdapter.MyItemClickListener{
-            override fun onItemClick() {
-
-            }
-
-            override fun onRemoveLocker(position: Int) {
-                lockerRVAdapter.removeItem(position)
-            }
-
-        })
-
-
+        val  lockerAdapter = LockerVPAadapter(this)
+        binding.lockerBannerVp.adapter = lockerAdapter
+        TabLayoutMediator(binding.lockerContentTb, binding.lockerBannerVp){
+            tab, position ->
+            tab.text = information[position]
+        }.attach()
 
         return binding.root
     }

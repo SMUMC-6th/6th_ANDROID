@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.widget.ViewPager2
 import com.example.android_6th.databinding.FragmentHomeBinding
 import com.google.gson.Gson
 import kotlin.collections.ArrayList
@@ -72,6 +73,19 @@ class HomeFragment : Fragment() {
             }
 
         })
+
+        val bannerAdaper = BannerVPAadpter(this)
+        bannerAdaper.addFragment(BannerFragment(R.drawable.img_home_viewpager_exp))
+        bannerAdaper.addFragment(BannerFragment(R.drawable.img_home_viewpager_exp2))
+        binding.homeBannerVp.adapter = bannerAdaper
+        binding.homeBannerVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+
+        val backgroundAdapter = BackgroundVPAadpter(this)
+        backgroundAdapter.addFragment(BackgroundFragment(R.drawable.img_first_album_default))
+        backgroundAdapter.addFragment(BackgroundFragment(R.drawable.img_album_exp))
+        binding.homePannelBackgroundVp.adapter = backgroundAdapter
+        binding.homePannelBackgroundVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+        binding.homePannelIndicator.setViewPager(binding.homePannelBackgroundVp)
 
         return binding.root
     }

@@ -9,8 +9,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/home_pannel_background_iv"
+<!--        <ImageView-->
+<!--            android:id="@+id/home_pannel_background_iv"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="430dp"-->
+<!--            android:scaleType="centerCrop"-->
+<!--            android:src="@drawable/img_first_album_default"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintEnd_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            />-->
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/home_pannel_background.Vp"
             android:layout_width="match_parent"
             android:layout_height="430dp"
             android:scaleType="centerCrop"
@@ -18,6 +29,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintEnd_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <me.relex.circleindicator.CircleIndicator3
+            android:id="@+id/home_pannel_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            app:ci_drawable_unselected="@color/purple_200"
+            app:ci_drawable="@color/black"
+            app:ci_animator="@animator/scale_with_alpha"
+            app:layout_constraintTop_toBottomOf="@id/home_pannel_background.Vp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+
             />
 
 
@@ -103,7 +127,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginBottom="30dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/home_pannel_background_iv"
+            app:layout_constraintBottom_toBottomOf="@id/home_pannel_background.Vp"
 
             />
 
@@ -173,12 +197,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/home_pannel_background_iv"
+            app:layout_constraintTop_toBottomOf="@id/home_pannel_background.Vp"
             android:text="오늘의 발매 음악"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:textSize="15sp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="45dp"
             android:layout_marginStart="20dp"
             />
 
@@ -199,9 +223,9 @@
             android:text="해외"
             android:textColor="@color/gray_color"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/home_pannel_background_iv"
+            app:layout_constraintTop_toBottomOf="@id/home_pannel_background.Vp"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="45dp"
             android:layout_marginEnd="15dp"
             android:textSize="17sp"
 
@@ -214,9 +238,9 @@
             android:text="국내"
             android:textColor="@color/gray_color"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/home_pannel_background_iv"
+            app:layout_constraintTop_toBottomOf="@id/home_pannel_background.Vp"
             app:layout_constraintEnd_toStartOf="@id/home_pannel_btn_Overseas.iv"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="45dp"
             android:layout_marginEnd="15dp"
             android:textSize="17sp"
 
@@ -228,9 +252,9 @@
             android:text="종합"
             android:textColor="@color/purple_200"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/home_pannel_background_iv"
+            app:layout_constraintTop_toBottomOf="@id/home_pannel_background.Vp"
             app:layout_constraintEnd_toStartOf="@id/home_pannel_btn_Korea.iv"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="45dp"
             android:layout_marginEnd="15dp"
             android:textSize="17sp"
 
@@ -360,16 +384,27 @@
 
             app:layout_constraintTop_toBottomOf="@id/home_pannel_todaymusic_iv"
 
+
             />
 
-        <ImageView
-            android:id="@+id/home_pannel_letmeknow.iv"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:src="@drawable/img_home_viewpager_exp"
-            app:layout_constraintTop_toBottomOf="@id/home_today_music_album_iv"
-            app:layout_constraintStart_toStartOf="@id/home_today_music_album_iv"
+<!--        <ImageView-->
+<!--            android:id="@+id/home_pannel_letmeknow.iv"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="80dp"-->
+<!--            android:src="@drawable/img_home_viewpager_exp"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/home_today_music_album_iv"-->
+<!--            app:layout_constraintStart_toStartOf="@id/home_today_music_album_iv"-->
 
+<!--            />-->
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/home_banner.Vp"
+            android:layout_width="match_parent"
+            android:layout_marginTop="1dp"
+            android:layout_height="100dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/home_today_music_album_iv"
             />
 
 
@@ -381,7 +416,7 @@
             android:textColor="@color/black"
             android:textStyle="bold"
             android:textSize="18sp"
-            app:layout_constraintTop_toBottomOf="@id/home_pannel_letmeknow.iv"
+            app:layout_constraintTop_toBottomOf="@id/home_banner.Vp"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
