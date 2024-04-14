@@ -1,13 +1,10 @@
 package com.example.android_6th
 
-import android.content.Intent
-import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android_6th.databinding.ItemAlbumBinding
-import com.google.gson.Gson
 
 class AlbumRVAdapter(private val albumList: ArrayList<Album>): RecyclerView.Adapter<AlbumRVAdapter.ViewHolder>() {
 
@@ -21,6 +18,7 @@ class AlbumRVAdapter(private val albumList: ArrayList<Album>): RecyclerView.Adap
 
     // 외부에서 전달받은 Listener 객체를 Adapter에서 사용할 수 있도록 따로 저장할 변수 선언
     private lateinit var mItemClickListener: MyItemClickListener
+
     fun setMyItemClickListener(itemClickListener: MyItemClickListener){
         mItemClickListener = itemClickListener
     }
@@ -54,7 +52,7 @@ class AlbumRVAdapter(private val albumList: ArrayList<Album>): RecyclerView.Adap
         holder.bind(albumList[position])
 
         //Fragement 전환
-        holder.itemView.setOnClickListener{ mItemClickListener.onItemClick(albumList[position]) }
+        holder.itemView.setOnClickListener{ mItemClickListener?.onItemClick(albumList[position]) }
 
         // play버튼 클릭 시 미니플레이어 가수, 제목 변경
         holder.binding.itemAlbumPlayImgIv.setOnClickListener{ mItemClickListener.onPlayerClick(position) }

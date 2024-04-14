@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android_6th.databinding.FragmentLockerBinding
+import com.google.android.material.tabs.TabLayoutMediator
 
 class LockerFragment : Fragment() {
 
     lateinit var binding: FragmentLockerBinding
-    private var lockerDatas = ArrayList<Locker>()
+
+    private val information = arrayListOf("저장한 곡", "음악파일")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,29 +22,13 @@ class LockerFragment : Fragment() {
     ): View? {
         binding = FragmentLockerBinding.inflate(inflater, container, false)
 
-        // lockerDatas 더미 데이터 입력
-        lockerDatas.apply{
-            add(Locker("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
-            add(Locker("LILAC", "아이유 (IU)", R.drawable.img_album_exp2))
-            add(Locker("밤양갱", "비비 (BIBI)", R.drawable.img_album_exp3))
-            add(Locker("EASY", "LE SSERAFIM", R.drawable.img_album_exp4))
-            add(Locker("I AM", "IVE (아이브)", R.drawable.img_album_exp5))
-            add(Locker("Talk Saxy", "RIIZE", R.drawable.img_album_exp6))
-            add(Locker("Drama", "aespa", R.drawable.img_album_exp7))
-            add(Locker("To. X", "TAEYEON", R.drawable.img_album_exp8))
-        }
-
-        // Adapter와 Datalist 연결
-        val lockerRVAdapter = LockerRVAdapter(lockerDatas)
-        binding.lockerPlaylistRv.adapter = lockerRVAdapter
-        binding.lockerPlaylistRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-
-        // Listener 객체 던져주기
-        lockerRVAdapter.setMyItemClickListener(object: LockerRVAdapter.MyItemClickListener{
-            override fun onRemoveSong(position: Int) {
-                lockerRVAdapter.removeItem(position)
-            }
-        })
+        // locker viewpager adapter 연결 및 초기화
+        val lockerAdapter = LockerVPAdapter(this)
+        binding.lockerContentVp.adapter = lockerAdapter
+        TabLayoutMediator(binding.lockerContentTb, binding.lockerContentVp){ // tab item과 viewpage fragment 연결
+                tab, position ->
+            tab.text = information[position]
+        }.attach()
 
         return binding.root
     }

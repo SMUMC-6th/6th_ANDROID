@@ -8,11 +8,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.android_6th.databinding.FragmentAlbumBinding
+import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.Gson
 
 class AlbumFragment : Fragment() {
     lateinit var binding : FragmentAlbumBinding
-    private var gson: Gson = Gson()
+    private val gson: Gson = Gson()
+
+    private val information = arrayListOf("수록곡", "상세정보", "영상")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,7 +25,7 @@ class AlbumFragment : Fragment() {
         binding = FragmentAlbumBinding.inflate(inflater, container, false) //초기화
 
         // arguments에서 데이터 꺼내서 Binding
-        val albumJson = arguments?.getString("album)")
+        val albumJson = arguments?.getString("album")
         val album = gson.fromJson(albumJson, Album::class.java)
         setInit(album) //데이터 Binding
 
@@ -33,9 +36,14 @@ class AlbumFragment : Fragment() {
                 .commitAllowingStateLoss()
         }
 
-        binding.songLalacLayout.setOnClickListener{
-            Toast.makeText(activity, "LILAC", Toast.LENGTH_SHORT).show()
-        }
+        // album viewpager adapter 연결 및 초기화
+        val albumAdapter = AlbumVPAdapter(this)
+        binding.albumContentVp.adapter = albumAdapter
+        TabLayoutMediator(binding.albumContentTb, binding.albumContentVp){ // tab item과 viewpage fragment 연결
+            tab, position ->
+            tab.text = information[position]
+        }.attach()
+
         return binding.root
     }
 

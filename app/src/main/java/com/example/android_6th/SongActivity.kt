@@ -2,6 +2,7 @@ package com.example.android_6th
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -11,6 +12,7 @@ import com.example.android_6th.databinding.ActivitySongBinding
 class SongActivity : AppCompatActivity() {
 
     lateinit var binding : ActivitySongBinding
+    var currentRepeatStatus = false //초기상태는 false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,12 +28,15 @@ class SongActivity : AppCompatActivity() {
             finish()
         }
 
-        binding.songMiniplayerIv.setOnClickListener{
-            setPlayerStatus(false)
-        }
-        binding.songPauseIv.setOnClickListener{
-            setPlayerStatus(true)
-        }
+        binding.songMiniplayerIv.setOnClickListener{ setPlayerStatus(false) }
+        binding.songPauseIv.setOnClickListener{ setPlayerStatus(true) }
+
+        binding.songRepeatIv.setOnClickListener{ setRepeatStatus(true) }
+        binding.songRepeatOnIv.setOnClickListener{ setRepeatStatus(false) }
+
+        binding.songRandomIv.setOnClickListener{ setRandomStatus(true) }
+        binding.songRandomOnIv.setOnClickListener{ setRandomStatus(false) }
+
         if(intent.hasExtra("title") && intent.hasExtra("singer")){
             binding.songMusicTitleTv.text = intent.getStringExtra("title")
             binding.songSingerNameTv.text = intent.getStringExtra("singer")
@@ -46,6 +51,28 @@ class SongActivity : AppCompatActivity() {
         else{
             binding.songMiniplayerIv.visibility = View.GONE
             binding.songPauseIv.visibility = View.VISIBLE
+        }
+    }
+
+    fun setRepeatStatus(isRepeat : Boolean){
+        if(isRepeat){
+            binding.songRepeatOnIv.visibility = View.VISIBLE
+            binding.songRepeatIv.visibility = View.GONE
+        }
+        else{
+            binding.songRepeatOnIv.visibility = View.GONE
+            binding.songRepeatIv.visibility = View.VISIBLE
+        }
+    }
+
+    fun setRandomStatus(isRandom : Boolean){
+        if(isRandom){
+            binding.songRandomOnIv.visibility = View.VISIBLE
+            binding.songRandomIv.visibility = View.GONE
+        }
+        else{
+            binding.songRandomOnIv.visibility = View.GONE
+            binding.songRandomIv.visibility = View.VISIBLE
         }
     }
 }

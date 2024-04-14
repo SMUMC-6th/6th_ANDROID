@@ -2,6 +2,8 @@ package com.example.android_6th
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,9 +11,12 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.widget.ViewPager2
 import com.example.android_6th.databinding.ActivityMainBinding
 import com.example.android_6th.databinding.FragmentHomeBinding
 import com.google.gson.Gson
+import java.util.Timer
+import java.util.TimerTask
 
 class HomeFragment : Fragment() {
 
@@ -60,6 +65,39 @@ class HomeFragment : Fragment() {
             }
         })
 
+        // home banner adapter 연결
+        val bannerAdapter = BannerVPAdapter(this)
+        bannerAdapter.addFragment(BannerFragment(R.drawable.img_home_viewpager_exp)) // homeBanner fragment 추가
+        bannerAdapter.addFragment(BannerFragment(R.drawable.img_home_viewpager_exp2))
+        binding.homeBannerVp.adapter = bannerAdapter
+        binding.homeBannerVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL //수평
+
+        val pannelAdapter = PannelVPAdapter(this)
+        pannelAdapter.addPannel(PannelFragment(R.drawable.img_first_album_default))
+        pannelAdapter.addPannel(PannelFragment(R.drawable.img_first_album_default))
+        pannelAdapter.addPannel(PannelFragment(R.drawable.img_first_album_default))
+        binding.homePannelContentVp.adapter = pannelAdapter
+        binding.homePannelContentVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL //수평
+
+        //pannel와 circle indicator 연결
+        binding.homePannelIndicator.setViewPager(binding.homePannelContentVp)
+
+        // 자동으로 다음 pannel로 슬라이드 되는 indicator 구현
+        val handler = Handler(Looper.getMainLooper())
+        val update = Runnable {
+            val currentItem = binding.homePannelContentVp.currentItem //현재 보여지는 이미지
+            val nextPage = (currentItem + 1) % pannelAdapter.itemCount //다음에 슬라이드 될 이미지
+            binding.homePannelContentVp.setCurrentItem(nextPage, true)
+        }
+        val timer = Timer() // 2초 간격으로 주기적으로 작업을 실행
+        timer.schedule(object : TimerTask() {
+            override fun run() {
+                handler.post(update)
+            }
+        }, 2000, 2000)
+
+
+
         return binding.root
     }
 
@@ -71,6 +109,7 @@ class HomeFragment : Fragment() {
                     val gson = Gson()
                     val albumJson = gson.toJson(album)
                     putString("album", albumJson)
+                    Log.d("앨범", albumJson)
                 }
             })
             .commitAllowingStateLoss()
