@@ -8,10 +8,15 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.android_6th.databinding.FragmentAlbumBinding
 import com.example.android_6th.MainActivity
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.Gson
 
 class AlbumFragment : Fragment() {
     lateinit var binding : FragmentAlbumBinding
+
+    private val information = arrayListOf("수록곡", "상세정보", "영상")
+
     private val gson: Gson = Gson()
 
     override fun onCreateView(
@@ -26,8 +31,17 @@ class AlbumFragment : Fragment() {
         setInit(album)
 
         binding.albumBackIv.setOnClickListener{
-            (context as MainActivity).supportFragmentManager.beginTransaction().replace(R.id.main_frm,HomeFragment()).commitAllowingStateLoss()
+            (context as MainActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.main_frm,HomeFragment())
+                .commitAllowingStateLoss()
         }
+
+        val albumAdapter = AlbumVPAdapter(this)
+        binding.albumContentVp.adapter = albumAdapter
+        TabLayoutMediator(binding.albumContentTb, binding.albumContentVp){
+            tab, position ->
+            tab.text = information[position]
+        }.attach()
 
 //        binding.songLalacLayout.setOnClickListener{
 //            Toast.makeText(activity, "LILAC", Toast.LENGTH_SHORT).show()

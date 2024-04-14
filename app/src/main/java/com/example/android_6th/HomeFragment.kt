@@ -1,6 +1,9 @@
 package com.example.android_6th
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +14,16 @@ import com.example.android_6th.databinding.FragmentHomeBinding
 import com.example.android_6th.MainActivity
 import com.example.android_6th.databinding.ItemAlbumBinding
 import com.google.gson.Gson
+import me.relex.circleindicator.CircleIndicator3
+import java.util.Timer
+import kotlin.concurrent.scheduleAtFixedRate
 
 class HomeFragment : Fragment() {
 
     lateinit var binding: FragmentHomeBinding
     private var albumDatas = ArrayList<Album>()
+    private val timer = Timer()
+    private val handler = Handler(Looper.getMainLooper())
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,10 +32,7 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-//        binding.itemAlbumCoverImgCardView.setOnClickListener{
-//            (context as MainActivity).supportFragmentManager.beginTransaction().replace(R.id.main_frm,AlbumFragment()).commitAllowingStateLoss()
-//        }
-
+        // 앨범 데이터 초기화
         albumDatas.apply {
             add(Album("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
             add(Album("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
@@ -37,8 +42,39 @@ class HomeFragment : Fragment() {
             add(Album("Weekend", "태연 (Tae Yeon)", R.drawable.img_album_exp6))
         }
 
+        val backAdapter = BackVPAdapter(this)
+        backAdapter.addFragment(BackFragment(R.drawable.img_first_album_default))
+        backAdapter.addFragment(BackFragment(R.drawable.img_album_exp))
+        backAdapter.addFragment(BackFragment(R.drawable.img_album_exp2))
+        backAdapter.addFragment(BackFragment(R.drawable.img_album_exp3))
+        backAdapter.addFragment(BackFragment(R.drawable.img_album_exp4))
+        backAdapter.addFragment(BackFragment(R.drawable.img_album_exp5))
+        backAdapter.addFragment(BackFragment(R.drawable.img_album_exp6))
+        binding.homePannelBackgroundIv.adapter = backAdapter
+        binding.homePannelBackgroundIv.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+        binding.indicator.setViewPager(binding.homePannelBackgroundIv)
+        // 자동슬라이드 함수
+        startAutoSlide(backAdapter)
+
+        // 뷰페이저에 트랜스포머 설정
+        binding.homePannelBackgroundIv.setPageTransformer { page, position ->
+            val absPosition = Math.abs(position)
+            page.apply {
+                scaleX = if (absPosition < 0.5f) {
+                    1 - absPosition
+                } else {
+                    0.5f
+                }
+                scaleY = if (absPosition < 0.5f) {
+                    1 - absPosition
+                } else {
+                    0.5f
+                }
+            }
+        }
+
         val albumRVAdapter = AlbumRVAdapter(albumDatas)
-        binding.homeTodayMusicAlbumRv.adapter =albumRVAdapter
+        binding.homeTodayMusicAlbumRv.adapter = albumRVAdapter
         binding.homeTodayMusicAlbumRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
         albumRVAdapter.setMyItemClickListener(object: AlbumRVAdapter.MyItemClickListener{
@@ -71,5 +107,19 @@ class HomeFragment : Fragment() {
                 }
             })
             .commitAllowingStateLoss()
+    }
+
+    private fun startAutoSlide(adpater : BackVPAdapter) {
+        // 일정 간격으로 슬라이드 변경 (3초마다)
+        timer.scheduleAtFixedRate(3000, 3000) {
+            handler.post {
+                val nextItem = binding.homePannelBackgroundIv.currentItem + 1
+                if (nextItem < adpater.itemCount) {
+                    binding.homePannelBackgroundIv.currentItem = nextItem
+                } else {
+                    binding.homePannelBackgroundIv.currentItem = 0 // 마지막 페이지에서 첫 페이지로 순환
+                }
+            }
+        }
     }
 }

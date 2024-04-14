@@ -35,7 +35,6 @@ class SongActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
 
-
         songs[nowPos].second = ((binding.songProgressSb.progress * songs[nowPos].playTime)/100)/1000
         songs[nowPos].isPlaying = false
         setPlayerStatus(false)
@@ -83,6 +82,26 @@ class SongActivity : AppCompatActivity() {
 
         binding.songLikeIv.setOnClickListener {
             setLike(songs[nowPos].isLike)
+        }
+
+        binding.songRepeatIv.setOnClickListener{
+            binding.songRepeatIv.visibility = View.GONE
+            binding.songRepeatActiveIv.visibility = View.VISIBLE
+        }
+
+        binding.songRepeatActiveIv.setOnClickListener{
+            binding.songRepeatActiveIv.visibility = View.GONE
+            binding.songRepeatIv.visibility = View.VISIBLE
+        }
+
+        binding.songRandomIv.setOnClickListener{
+            binding.songRandomIv.visibility = View.GONE
+            binding.songRandomActiveIv.visibility = View.VISIBLE
+        }
+
+        binding.songRandomActiveIv.setOnClickListener{
+            binding.songRandomActiveIv.visibility = View.GONE
+            binding.songRandomIv.visibility = View.VISIBLE
         }
     }
 
