@@ -52,4 +52,10 @@ dependencies {
 
     //gson
     implementation("com.google.code.gson:gson:2.8.7")
+
+    //circleindicator
+    implementation("me.relex:circleindicator:2.1.6")
+
+    // 인디케이터 애니메이션 오픈소스
+    implementation("com.tbuonomo:dotsindicator:5.0")
 }
