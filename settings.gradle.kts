@@ -15,4 +15,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "android_6th"
 include(":app")
- 

@@ -251,6 +251,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/home_today_music_album_rv"/>
 
+    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+        android:id="@+id/home_banner_dots_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="60dp"
+        android:layout_centerHorizontal="true"
+        app:dotsColor="@android:color/black"
+        app:dotsCornerRadius="8dp"
+        app:dotsSize="16dp"
+        app:dotsSpacing="4dp"
+        app:dotsWidthFactor="2.5"
+        app:selectedDotColor="@android:color/darker_gray"
+        app:progressMode="false"
+        app:layout_constraintBottom_toBottomOf="@id/home_banner_vp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
         android:id="@+id/home_main_potcast_phrase_tv"
@@ -470,7 +487,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
-    
+
     <ImageView
         android:id="@+id/home_main_viewpage2_iv"
         android:layout_width="370dp"
