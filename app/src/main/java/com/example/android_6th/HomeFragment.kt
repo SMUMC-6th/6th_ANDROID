@@ -1,6 +1,8 @@
 package com.example.android_6th
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,17 +11,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.android_6th.databinding.FragmentHomeBinding
 import com.google.gson.Gson
-import kotlin.collections.ArrayList
+import java.util.Timer
+import kotlin.concurrent.scheduleAtFixedRate
+
 
 class HomeFragment : Fragment() {
 
     lateinit var binding: FragmentHomeBinding
     private var albumDates = ArrayList<Album>()
+    private val timer = Timer()
+    private val handler = Handler(Looper.getMainLooper())
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
+
 
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
@@ -37,6 +44,7 @@ class HomeFragment : Fragment() {
             add(Album("volt","김민",R.drawable.img_album_exp5))
             add(Album("bottle","박태정",R.drawable.img_album_exp6))
         }
+
 
 
 
@@ -77,16 +85,41 @@ class HomeFragment : Fragment() {
         val bannerAdaper = BannerVPAadpter(this)
         bannerAdaper.addFragment(BannerFragment(R.drawable.img_home_viewpager_exp))
         bannerAdaper.addFragment(BannerFragment(R.drawable.img_home_viewpager_exp2))
+
+
         binding.homeBannerVp.adapter = bannerAdaper
         binding.homeBannerVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 
+        //뷰페이저
         val backgroundAdapter = BackgroundVPAadpter(this)
         backgroundAdapter.addFragment(BackgroundFragment(R.drawable.img_first_album_default))
         backgroundAdapter.addFragment(BackgroundFragment(R.drawable.img_album_exp))
+        backgroundAdapter.addFragment(BackgroundFragment(R.drawable.img_album_exp))
+        backgroundAdapter.addFragment(BackgroundFragment(R.drawable.img_album_exp))
+
         binding.homePannelBackgroundVp.adapter = backgroundAdapter
         binding.homePannelBackgroundVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         binding.homePannelIndicator.setViewPager(binding.homePannelBackgroundVp)
 
+        startAutoSlide(backgroundAdapter)
+
+
         return binding.root
     }
+
+    private fun startAutoSlide(adapter: BackgroundVPAadpter) {
+        timer.scheduleAtFixedRate(3000, 3000) {
+            handler.post {
+                val nextItem = binding.homePannelBackgroundVp.currentItem + 1
+                if (nextItem < adapter.itemCount) {
+                    binding.homePannelBackgroundVp.currentItem = nextItem
+                } else {
+                    binding.homePannelBackgroundVp.currentItem = 0 // 마지막 페이지에서 첫 페이지로 순환
+                }
+            }
+        }
+    }
+
+
+
 }
