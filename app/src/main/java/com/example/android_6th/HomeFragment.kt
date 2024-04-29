@@ -110,6 +110,7 @@ class HomeFragment : Fragment() {
         binding.homeBannerVp.adapter = bannerAdapter
         binding.homeBannerVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL //viewpager가 좌우로 스크롤됨
 
+        // 추가 미션
         // viewpager indicator 애니메이션 동작 연결
         binding.dotsIndicator.setViewPager2(binding.homeBannerVp)
     }
