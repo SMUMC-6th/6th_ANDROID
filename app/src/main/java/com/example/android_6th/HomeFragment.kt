@@ -19,7 +19,7 @@ import java.util.ArrayList
 import java.util.Timer
 import kotlin.concurrent.scheduleAtFixedRate
 
-class HomeFragment : Fragment(), CommunicationInterface {
+class HomeFragment : Fragment() {
 
 
     lateinit var binding: FragmentHomeBinding
@@ -77,8 +77,12 @@ class HomeFragment : Fragment(), CommunicationInterface {
             }
 
             override fun onPlayAlbum(album: Album) {
-                sendData(album)
+                TODO("Not yet implemented")
             }
+
+            /*override fun onPlayAlbum(album: Album) {
+                sendData(album)
+            }*/
 
 
         })
@@ -128,12 +132,12 @@ class HomeFragment : Fragment(), CommunicationInterface {
 
 
     //MainActivity에 album(데이터) 전달 //인터페이스 구현
-    override fun sendData(album: Album){
+    /*override fun sendData(album: Album){
         if (activity is MainActivity){
             val activity = activity as MainActivity
             activity.updateMainPlayerCL(album)
         }
-    }
+    }*/
 
     private fun changeAlbumFragment(album: Album) {
         (context as MainActivity).supportFragmentManager.beginTransaction()
