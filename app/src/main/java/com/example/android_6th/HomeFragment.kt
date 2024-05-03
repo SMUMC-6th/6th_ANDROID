@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.android_6th.databinding.FragmentHomeBinding
+import com.example.flo.SongDatabase
 import com.google.gson.Gson
 import java.util.Timer
 import kotlin.concurrent.scheduleAtFixedRate
@@ -22,6 +23,7 @@ class HomeFragment : Fragment() {
     private val timer = Timer()
     private val handler = Handler(Looper.getMainLooper())
 
+    private lateinit var songDB : SongDatabase
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -36,14 +38,9 @@ class HomeFragment : Fragment() {
             (context as MainActivity).supportFragmentManager.beginTransaction().replace(R.id.main_frm,AlbumFragment()).commitAllowingStateLoss()
         }*/
 
-        albumDates.apply{
-            add(Album("Butter","방탄소년단",R.drawable.img_album_exp))
-            add(Album("electronis","아이유",R.drawable.img_album_exp2))
-            add(Album("psycho","오혁",R.drawable.img_album_exp3))
-            add(Album("suncream","혁오밴드",R.drawable.img_album_exp4))
-            add(Album("volt","김민",R.drawable.img_album_exp5))
-            add(Album("bottle","박태정",R.drawable.img_album_exp6))
-        }
+        //DB 값 넣기
+        songDB = SongDatabase.getInstance(requireContext())!!
+        albumDates.addAll(songDB.albumDao().getAlbumes())
 
 
 

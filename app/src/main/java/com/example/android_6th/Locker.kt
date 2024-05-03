@@ -1,5 +1,7 @@
 package com.example.android_6th
 
+import com.example.flo.Song
+
 data class Locker(
 
     var title:String? = "",
