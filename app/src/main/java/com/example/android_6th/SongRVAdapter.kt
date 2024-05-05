@@ -1,5 +1,7 @@
 package com.example.android_6th
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.android_6th.databinding.ItemSongBinding
 
-class SongRVAdapter(val context: ArrayList<Album>, val result: FloChartResult) : RecyclerView.Adapter<SongRVAdapter.ViewHolder>() {
+class SongRVAdapter(val context: Context, val result : FloChartResult) : RecyclerView.Adapter<SongRVAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): SongRVAdapter.ViewHolder {
@@ -22,14 +24,14 @@ class SongRVAdapter(val context: ArrayList<Album>, val result: FloChartResult) :
     override fun onBindViewHolder(holder: SongRVAdapter.ViewHolder, position: Int) {
         //holder.bind(result.songs[position])
 
-//        if(result.songs[position].coverImgUrl == "" || result.songs[position].coverImgUrl == null){
-//
-//        } else {
-//            Log.d("image",result.songs[position].coverImgUrl )
-//            Glide.with(context).load(result.songs[position].coverImgUrl).into(holder.coverImg)
-//        }
-//        holder.title.text = result.songs[position].title
-//        holder.singer.text = result.songs[position].singer
+        if(result.songs[position].coverImgUrl == "" || result.songs[position].coverImgUrl == null){
+
+        } else {
+            Log.d("image",result.songs[position].coverImgUrl )
+            Glide.with(context).load(result.songs[position].coverImgUrl).into(holder.coverImg)
+        }
+        holder.title.text = result.songs[position].title
+        holder.singer.text = result.songs[position].singer
 
     }
 

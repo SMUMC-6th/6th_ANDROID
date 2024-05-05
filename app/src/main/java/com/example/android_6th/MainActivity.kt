@@ -1,27 +1,18 @@
 package com.example.android_6th
-
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import androidx.core.content.ContextCompat
-import com.example.android_6th.HomeFragment
-import com.example.android_6th.LockerFragment
-import com.example.android_6th.LookFragment
-import com.example.android_6th.R
-import com.example.android_6th.SearchFragment
 import com.example.android_6th.databinding.ActivityMainBinding
-import com.example.android_6th.databinding.ItemAlbumBinding
 import com.google.gson.Gson
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
 
-    private var song: Song = Song()
-
+    private var song:Song = Song()
     private var gson: Gson = Gson()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.Theme_FLO)
@@ -41,6 +32,8 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this,SongActivity::class.java)
             startActivity(intent)
         }
+
+        Log.d("MAIN/JWT_TO_SERVER", getJwt().toString())
 
     }
 
@@ -69,6 +62,12 @@ class MainActivity : AppCompatActivity() {
         setMiniPlayer(song)
     }
 
+
+    private fun getJwt(): String? {
+        val spf = this.getSharedPreferences("auth2" , AppCompatActivity.MODE_PRIVATE)
+
+        return spf!!.getString("jwt", "")
+    }
 
 
     private fun initBottomNavigation(){
