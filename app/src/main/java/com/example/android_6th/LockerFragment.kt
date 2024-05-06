@@ -16,7 +16,7 @@ class LockerFragment : Fragment() {
 
     lateinit var binding: FragmentLockerBinding
 
-    private val information = arrayListOf("저장한 곡", "음악파일")
+    private val information = arrayListOf("저장한 곡", "음악파일", "저장앨범")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -73,7 +73,7 @@ class LockerFragment : Fragment() {
         return spf!!.getInt("jwt", 0)
     }
 
-    // 현재 Jwt 값 지워서 로그아웃 하는 함수
+    // 현재 Jwt 값 지워서 로그아웃 하는 함수 (로그인한 사용자 확인 함수)
     private fun logout() {
         val spf = activity?.getSharedPreferences("auth" , AppCompatActivity.MODE_PRIVATE)
         val editor = spf!!.edit()

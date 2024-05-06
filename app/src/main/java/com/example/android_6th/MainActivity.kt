@@ -47,6 +47,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        inputDummyAlbums()
+
         // 보류 val song = Song(binding.mainMainplayerTitleTv.text.toString(), binding.mainMainplayerSingerTv.text.toString())
 
         // 아무런 album의 player 버튼 클릭 안 했을 시 -> 아이유 & 라일락
@@ -67,6 +69,13 @@ class MainActivity : AppCompatActivity() {
         initBottomNavigation()
 
         Log.d("Song", song.title + song.singer)
+        Log.d("MAIN/JWT_TO_SERVER", getJwt().toString())
+    }
+
+    private fun getJwt(): String? { //사용자 확인용 jwt 로그
+        val spf = this.getSharedPreferences("auth2", AppCompatActivity.MODE_PRIVATE)
+
+        return spf!!.getString("jwt", "")
     }
 
     private fun initBottomNavigation(){
@@ -135,5 +144,63 @@ class MainActivity : AppCompatActivity() {
     private fun setMiniPlayer(song: Song) {
         binding.mainMainplayerTitleTv.text = song.title
         binding.mainMainplayerSingerTv.text = song.singer
+    }
+
+    // 앨범 더미데이터 생성 함수
+    private fun inputDummyAlbums(){
+        val songDB = SongDatabase.getInstance(this)!!
+        val albums = songDB.albumDao().getAlbums()
+
+        if(albums.isNotEmpty()) return
+
+        songDB.albumDao().insert(
+            Album(
+                0,
+                "IU 5th Album 'LILAC'", "아이유 (IU)", R.drawable.img_album_exp2
+            )
+        )
+        songDB.albumDao().insert(
+            Album(
+                1,
+                "Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp
+            )
+        )
+        songDB.albumDao().insert(
+            Album(
+                2,
+                "밤양갱", "비비 (BIBI)", R.drawable.img_album_exp3
+            )
+        )
+        songDB.albumDao().insert(
+            Album(
+                3,
+                "EASY", "LE SSERAFIM", R.drawable.img_album_exp4
+            )
+        )
+        songDB.albumDao().insert(
+            Album(
+                4,
+                "I AM", "IVE (아이브)", R.drawable.img_album_exp5
+            )
+        )
+        songDB.albumDao().insert(
+            Album(
+                5,
+                "Talk Saxy", "RIIZE", R.drawable.img_album_exp6
+            )
+        )
+        songDB.albumDao().insert(
+            Album(
+                6,
+                "Drama", "aespa", R.drawable.img_album_exp7
+            )
+        )
+        songDB.albumDao().insert(
+            Album(
+                7,
+                "To. X", "TAEYEON", R.drawable.img_album_exp8
+            )
+        )
+
     }
 }
