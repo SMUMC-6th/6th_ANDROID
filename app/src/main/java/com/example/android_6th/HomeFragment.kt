@@ -27,6 +27,8 @@ class HomeFragment : Fragment() {
     //ArrayList 선언
     private var albumDatas = ArrayList<Album>()
 
+    private lateinit var songDB : SongDatabase
+
     private val timer = Timer()
     private val handler = Handler(Looper.getMainLooper())
 
@@ -43,15 +45,18 @@ class HomeFragment : Fragment() {
         }*/
 
 
-        // 앨범 데이터 리스트 생성 더미 데이터
-        albumDatas.apply {
-            add(Album("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
-            add(Album("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
-            add(Album("Next Level", "에스파 (AESPA)", R.drawable.img_album_exp3))
-            add(Album("Boy with Luv", "방탄소년단 (BTS)", R.drawable.img_album_exp4))
-            add(Album("BBoom BBoom", "모모랜드 (MOMOLAND)", R.drawable.img_album_exp5))
-            add(Album("Weekend", "태연 (Tae Yeon)", R.drawable.img_album_exp6))
-        } //recyclerview에 들어갈 데이터 준비 완료
+//        // 앨범 데이터 리스트 생성 더미 데이터
+//        albumDatas.apply {
+//            add(Album("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
+//            add(Album("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
+//            add(Album("Next Level", "에스파 (AESPA)", R.drawable.img_album_exp3))
+//            add(Album("Boy with Luv", "방탄소년단 (BTS)", R.drawable.img_album_exp4))
+//            add(Album("BBoom BBoom", "모모랜드 (MOMOLAND)", R.drawable.img_album_exp5))
+//            add(Album("Weekend", "태연 (Tae Yeon)", R.drawable.img_album_exp6))
+//        } //recyclerview에 들어갈 데이터 준비 완료
+        songDB = SongDatabase.getInstance(requireContext())!!
+        albumDatas.addAll(songDB.albumDao().getAlbums()) // songDB에서 album list를 가져온다.
+        Log.d("albumlist", albumDatas.toString())
 
 
         //어뎁터와 데이터 리스트(더미데이터) 연결
@@ -62,7 +67,6 @@ class HomeFragment : Fragment() {
 
         // 레이아웃 매니저 설정 // LinearLayout: 수평(horizontal)으로 설정
         binding.homeTodayMusicAlbumRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-
 
 
         // Listener 객체를 어뎁터에게 던져줌 (리사이클러뷰의 아이템을 클릭했을 때 AlbumFragment로 이동)
@@ -76,17 +80,12 @@ class HomeFragment : Fragment() {
                 albumRVAdapter.removeItem(position)
             }
 
-            override fun onPlayAlbum(album: Album) {
-                TODO("Not yet implemented")
-            }
-
             /*override fun onPlayAlbum(album: Album) {
                 sendData(album)
             }*/
 
 
         })
-
 
         initBanner()
         initHomeViewPager()

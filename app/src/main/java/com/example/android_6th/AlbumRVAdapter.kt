@@ -10,7 +10,7 @@ class AlbumRVAdapter(private val albumList: ArrayList<Album>): RecyclerView.Adap
     interface MyItemClickListener{
         fun onItemClick(album: Album)
         fun onRemoveAlbum(position: Int)
-        fun onPlayAlbum(album: Album) //재생 버튼 클릭
+//        fun onPlayAlbum(album: Album) //재생 버튼 클릭
     }
 
 
