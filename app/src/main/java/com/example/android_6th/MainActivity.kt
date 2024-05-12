@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 
         inputDummyAlbums()
 
-        // 보류 val song = Song(binding.mainMainplayerTitleTv.text.toString(), binding.mainMainplayerSingerTv.text.toString())
+        val song = Song(binding.mainMainplayerTitleTv.text.toString(), binding.mainMainplayerSingerTv.text.toString(), 0, 60, false)
 
         // 아무런 album의 player 버튼 클릭 안 했을 시 -> 아이유 & 라일락
         if (song.title == "" && song.singer == "") {
@@ -64,7 +64,11 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, SongActivity::class.java)
             intent.putExtra("title", song.title,)
             intent.putExtra("singer", song.singer,)
-            getResultText.launch(intent)
+            intent.putExtra("second", song.second,)
+            intent.putExtra("playTime", song.playTime,)
+            intent.putExtra("isPlaying", song.isPlaying,)
+            startActivity(intent)
+            //getResultText.launch(intent)
         }
         initBottomNavigation()
 

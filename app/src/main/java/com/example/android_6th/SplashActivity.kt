@@ -9,6 +9,7 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+
         // 타이머가 끝나면 내부 실행
         Handler().postDelayed( {
             // 앱의 MainActivity로 넘어가기
