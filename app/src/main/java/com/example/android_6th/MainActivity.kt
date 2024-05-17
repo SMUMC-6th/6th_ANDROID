@@ -15,7 +15,9 @@ import androidx.core.content.ContextCompat
 import com.example.android_6th.databinding.ActivityMainBinding
 import com.example.android_6th.databinding.FragmentAlbumBinding
 import com.google.gson.Gson
+import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.common.util.Utility
+import com.kakao.sdk.user.UserApiClient
 
 class MainActivity : AppCompatActivity() {
 
@@ -45,6 +47,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //카카오SDK 초기화
+        KakaoSdk.init(this, "959e9225d75104de248c1c98f5a12911") //NATIVE_APP_KEY
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -75,6 +79,20 @@ class MainActivity : AppCompatActivity() {
 
         Log.d("Song", song.title + song.singer)
         Log.d("MAIN/JWT_TO_SERVER", getJwt().toString())
+
+        //kakao 로그인 사용자 정보 요청
+        UserApiClient.instance.me { user, error ->
+            if (error != null) {
+                Log.e(TAG, "사용자 정보 요청 실패", error)
+            }
+            else if (user != null) {
+                Log.i(TAG, "사용자 정보 요청 성공" +
+                        "\n회원번호: ${user.id}" +
+                        "\n이메일: ${user.kakaoAccount?.email}" +
+                        "\n닉네임: ${user.kakaoAccount?.profile?.nickname}" +
+                        "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}")
+            }
+        }
     }
 
     private fun getJwt(): String? { //사용자 확인용 jwt 로그

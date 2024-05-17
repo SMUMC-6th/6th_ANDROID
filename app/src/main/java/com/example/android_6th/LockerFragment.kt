@@ -1,5 +1,6 @@
 package com.example.android_6th
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -14,11 +15,11 @@ import com.example.android_6th.LoginActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kakao.sdk.user.UserApiClient
 import com.kakao.sdk.auth.AuthApiClient
+import com.kakao.sdk.common.KakaoSdk
 
 class LockerFragment : Fragment() {
 
     lateinit var binding: FragmentLockerBinding
-    private val TAG = "MainActivity"
 
     private val information = arrayListOf("저장한 곡", "음악파일", "저장앨범")
 
@@ -54,7 +55,7 @@ class LockerFragment : Fragment() {
     private fun initViews() {
         val jwt: Int = getJwt()
 
-        if (jwt == 0 || !AuthApiClient.instance.hasToken()){
+        if (jwt == 0 && !AuthApiClient.instance.hasToken()){
             binding.lockerLoginTv.text = "로그인"
 
             binding.lockerLoginTv.setOnClickListener {
