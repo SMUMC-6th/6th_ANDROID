@@ -16,7 +16,6 @@ class SongActivity : AppCompatActivity() {
     lateinit var song: Song
     lateinit var timer: Timer
 
-    var currentRepeatStatus = false //초기상태는 false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,7 +86,7 @@ class SongActivity : AppCompatActivity() {
             try {
                 while (true){
 
-                    if (second >= playTime){
+                    if (second >= playTime){ //현재 재생 시간이 총 재생 시간을 초과할 때 while 루프를 종료
                         break
                     }
 

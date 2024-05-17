@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.android_6th"
-        minSdk = 21
+        minSdk = 23
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -74,7 +74,8 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.11.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.11.0")
 
-
+    //kakao
+    implementation("com.kakao.sdk:v2-user:2.20.1") // 카카오 로그인 API 모듈
 }
 
 kapt {

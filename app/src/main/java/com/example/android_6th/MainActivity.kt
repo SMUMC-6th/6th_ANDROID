@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import com.example.android_6th.databinding.ActivityMainBinding
 import com.example.android_6th.databinding.FragmentAlbumBinding
 import com.google.gson.Gson
+import com.kakao.sdk.common.util.Utility
 
 class MainActivity : AppCompatActivity() {
 

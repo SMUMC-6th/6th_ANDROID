@@ -2,6 +2,7 @@ package com.example.android_6th
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android_6th.databinding.FragmentLockerBinding
 import com.example.android_6th.LoginActivity
 import com.google.android.material.tabs.TabLayoutMediator
+import com.kakao.sdk.user.UserApiClient
+import com.kakao.sdk.auth.AuthApiClient
 
 class LockerFragment : Fragment() {
 
     lateinit var binding: FragmentLockerBinding
+    private val TAG = "MainActivity"
 
     private val information = arrayListOf("저장한 곡", "음악파일", "저장앨범")
 
@@ -50,7 +54,7 @@ class LockerFragment : Fragment() {
     private fun initViews() {
         val jwt: Int = getJwt()
 
-        if (jwt == 0){
+        if (jwt == 0 || !AuthApiClient.instance.hasToken()){
             binding.lockerLoginTv.text = "로그인"
 
             binding.lockerLoginTv.setOnClickListener {
@@ -61,7 +65,20 @@ class LockerFragment : Fragment() {
             binding.lockerLoginTv.text = "로그아웃"
 
             binding.lockerLoginTv.setOnClickListener {
-                logout()
+                if(AuthApiClient.instance.hasToken()){
+                    // 카카오 로그아웃
+                    UserApiClient.instance.logout { error ->
+                        if (error != null) {
+                            Log.e(TAG, "로그아웃 실패. SDK에서 토큰 삭제됨", error)
+                        }
+                        else {
+                            Log.i(TAG, "로그아웃 성공. SDK에서 토큰 삭제됨")
+                        }
+                    }
+                }
+                else{ //카카오 로그인 아닌 경우
+                    logout()
+                }
                 startActivity(Intent(activity, MainActivity::class.java))
             }
         }
