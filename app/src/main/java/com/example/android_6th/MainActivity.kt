@@ -22,7 +22,9 @@ import com.kakao.sdk.user.UserApiClient
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
-    val song = Song()
+
+    private var song: Song = Song()
+    private var gson: Gson = Gson()
 
     // 미니플레이에 적힌 노래 제목과 SongActivity로 전환됐을 때의 노래 제목 일치 여부 확인하는 Toast 메시지
     companion object{ const val STRING_INTENT_KEY = "my_string_key"}
@@ -52,9 +54,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        inputDummySongs()
         inputDummyAlbums()
-
-        val song = Song(binding.mainMainplayerTitleTv.text.toString(), binding.mainMainplayerSingerTv.text.toString(), 0, 60, false)
 
         // 아무런 album의 player 버튼 클릭 안 했을 시 -> 아이유 & 라일락
         if (song.title == "" && song.singer == "") {
@@ -66,15 +67,14 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.mainPlayerCl.setOnClickListener {
-            val intent = Intent(this, SongActivity::class.java)
-            intent.putExtra("title", song.title,)
-            intent.putExtra("singer", song.singer,)
-            intent.putExtra("second", song.second,)
-            intent.putExtra("playTime", song.playTime,)
-            intent.putExtra("isPlaying", song.isPlaying,)
+            val editor = getSharedPreferences("song", MODE_PRIVATE).edit()
+            editor.putInt("songId",song.id)
+            editor.apply()
+
+            val intent = Intent(this,SongActivity::class.java)
             startActivity(intent)
-            //getResultText.launch(intent)
         }
+
         initBottomNavigation()
 
         Log.d("Song", song.title + song.singer)
@@ -164,9 +164,153 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onStart(){
+        super.onStart()
+//        val sharedPreferences = getSharedPreferences("song", MODE_PRIVATE)
+//        val songJson = sharedPreferences.getString("songData", null)
+//
+//        song = if(songJson == null){ //기본값
+//            Song("라일락", "아이유(IU)", 0, 60, false, "music_lilac")
+//        } else{ //저장된 값
+//            gson.fromJson(songJson, song::class.java)
+//        }
+
+        //노래 ID 받아오기
+        val spf = getSharedPreferences("song", MODE_PRIVATE)
+        val songId = spf.getInt("songId", 0)
+
+        val songDB = SongDatabase.getInstance(this)!!
+
+        song = if(songId == 0){
+            songDB.songDao().getSong(1)
+        } else{
+            songDB.songDao().getSong(songId) //해당 song ID 가져오기
+        }
+
+        Log.d("song ID", song.id.toString())
+
+        setMiniPlayer(song)
+    }
+
     private fun setMiniPlayer(song: Song) {
         binding.mainMainplayerTitleTv.text = song.title
         binding.mainMainplayerSingerTv.text = song.singer
+        binding.mainMiniplayerProgressSb.progress = (song.second*100000)/song.playTime
+    }
+
+    // 노래 더미데이터 생성 함수
+    private fun inputDummySongs(){
+        val songDB = SongDatabase.getInstance(this)!!
+        val songs = songDB.songDao().getSongs()
+
+        if(songs.isNotEmpty()) return
+
+        songDB.songDao().insert(
+            Song(
+                "Lilac",
+                "아이유 (IU)",
+                0,
+                200,
+                false,
+                "music_lilac",
+                R.drawable.img_album_exp2,
+                false,
+            )
+        )
+
+        songDB.songDao().insert(
+            Song(
+                "Butter",
+                "방탄소년단 (BTS)",
+                0,
+                200,
+                false,
+                "music_butter",
+                R.drawable.img_album_exp,
+                false,
+            )
+        )
+
+        songDB.songDao().insert(
+            Song(
+                "밤양갱",
+                "비비 (BiBi)",
+                0,
+                190,
+                false,
+                "music_jelly",
+                R.drawable.img_album_exp3,
+                false,
+            )
+        )
+
+        songDB.songDao().insert(
+            Song(
+                "EASY",
+                "LE SSERAFIM",
+                0,
+                210,
+                false,
+                "music_easy",
+                R.drawable.img_album_exp4,
+                false,
+            )
+        )
+
+
+        songDB.songDao().insert(
+            Song(
+                "I AM",
+                "IVE (아이브)",
+                0,
+                230,
+                false,
+                "music_iam",
+                R.drawable.img_album_exp5,
+                false,
+            )
+        )
+
+        songDB.songDao().insert(
+            Song(
+                "Talk Saxy",
+                "RIIZE",
+                0,
+                240,
+                false,
+                "music_talksaxy",
+                R.drawable.img_album_exp6,
+                false,
+            )
+        )
+
+        songDB.songDao().insert(
+            Song(
+                "Drama",
+                "aespa",
+                0,
+                240,
+                false,
+                "music_drama",
+                R.drawable.img_album_exp7,
+                false,
+            )
+        )
+
+        songDB.songDao().insert(
+            Song(
+                "To. X",
+                "TAEYEON",
+                0,
+                240,
+                false,
+                "music_tox",
+                R.drawable.img_album_exp8,
+                false,
+            )
+        )
+        val _songs = songDB.songDao().getSongs()
+        Log.d("DB data", _songs.toString())
     }
 
     // 앨범 더미데이터 생성 함수

@@ -13,7 +13,7 @@ data class Song(
     var second: Int = 0,
     var playTime: Int = 0,
     var isPlaying: Boolean = false,
-    var music: String = "",
+    var music: String = "", //진행 중인 음악 이름
     var coverImg: Int? = null,
     var isLike: Boolean = false
 ){
