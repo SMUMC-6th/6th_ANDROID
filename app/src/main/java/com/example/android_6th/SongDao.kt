@@ -13,6 +13,7 @@ interface SongDao {
     @Delete
     fun delete(song: Song)
 
+    // 강의 7주차
     @Query("SELECT * FROM SongTable")
     fun getSongs(): List<Song>
 

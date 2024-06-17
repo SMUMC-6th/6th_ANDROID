@@ -122,6 +122,7 @@ class HomeFragment : Fragment() {
         topBannerAdapter.addFragment(HomeImageFragment(R.drawable.img_first_album_default))
         topBannerAdapter.addFragment(HomeImageFragment(R.drawable.img_second_album_default))
 
+        // 어댑터 연결
         binding.homeViewPager.adapter = topBannerAdapter
         binding.homeViewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 

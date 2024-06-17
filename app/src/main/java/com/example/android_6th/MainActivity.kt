@@ -7,12 +7,14 @@ import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.example.android_6th.databinding.ActivityMainBinding
+import com.google.gson.Gson
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
 
-    private var song:Song = Song()
+    private var song: Song = Song()
+    private var gson: Gson = Gson()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,24 +29,33 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.mainPlayerCl.setOnClickListener {
-            //startActivity(Intent(this, SongActivity::class.java)) //mainPlayer를 눌렀을 때 MainActivity에서 SongActivity로 이동한다.
+//            //startActivity(Intent(this, SongActivity::class.java)) //mainPlayer를 눌렀을 때 MainActivity에서 SongActivity로 이동한다.
+//            val intent = Intent(this, SongActivity::class.java)
+//            intent.putExtra("title", song.title)
+//            intent.putExtra("singer", song.singer)
+//            intent.putExtra("second", song.second)
+//            intent.putExtra("playTime", song.playTime)
+//            intent.putExtra("isPlaying", song.isPlaying)
+//            startActivity(intent)
+
+            // 강의 7주차 // 데이터 전달 (song의 id를 지정하여 넘겨줌)
+            val editor = getSharedPreferences("song", MODE_PRIVATE).edit()
+            editor.putInt("songId", song.id)
+            editor.apply()
+
             val intent = Intent(this, SongActivity::class.java)
-            intent.putExtra("title", song.title)
-            intent.putExtra("singer", song.singer)
-            intent.putExtra("second", song.second)
-            intent.putExtra("playTime", song.playTime)
-            intent.putExtra("isPlaying", song.isPlaying)
             startActivity(intent)
+
         }
 
-        Log.d("Song", song.title + song.singer)
-
-
-        // 데이터 전달
-        if (intent.hasExtra("title") && intent.hasExtra("singer")){
-            binding.mainMiniplayerTitleTv.text = intent.getStringExtra("title")
-            binding.mainMiniplayerSingerTv.text = intent.getStringExtra("singer")
-        }
+//        Log.d("Song", song.title + song.singer)
+//
+//
+//        // 데이터 전달
+//        if (intent.hasExtra("title") && intent.hasExtra("singer")){
+//            binding.mainMiniplayerTitleTv.text = intent.getStringExtra("title")
+//            binding.mainMiniplayerSingerTv.text = intent.getStringExtra("singer")
+//        }
 
         Log.d("MAIN/JWT_TO_SERVER", getJwt().toString())
 
@@ -70,6 +81,33 @@ class MainActivity : AppCompatActivity() {
     private fun getJwt(): String? {
         val spf = this.getSharedPreferences("auth2", AppCompatActivity.MODE_PRIVATE)
         return spf!!.getString("jwt","")
+    }
+
+    override fun onStart() { // 강의 7주차
+        super.onStart()
+//        val sharedPreferences = getSharedPreferences("song", MODE_PRIVATE)
+//        val songJson = sharedPreferences.getString("songData", null)
+//
+//        song = if(songJson == null){
+//            Song("라일락", "아이유(IU)", 0, 60, false, "music_lilac")
+//        } else {
+//            gson.fromJson(songJson, Song::class.java)
+//        }
+
+        val spf = getSharedPreferences("song", MODE_PRIVATE)
+        val songId = spf.getInt("songId", 0)
+
+        val songDB = SongDatabase.getInstance(this)!!
+
+        song = if (songId == 0){
+            songDB.songDao().getSong(1)
+        } else {
+            songDB.songDao().getSong(songId
+            )
+        }
+
+        Log.d("song ID", song.id.toString())
+        setMiniPlayer(song)
     }
 
     private fun initBottomNavigation(){
@@ -127,7 +165,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun inputDummySongs(){
+    private fun setMiniPlayer(song: Song){
+        binding.mainMiniplayerTitleTv.text = song.title
+        binding.mainMiniplayerSingerTv.text = song.singer
+        binding.mainMiniplayerProgressSb.progress = (song.second*100000)/song.playTime
+    }
+
+    private fun inputDummySongs(){ // 강의 7주차
         val songDB = SongDatabase.getInstance(this)!!
         val songs = songDB.songDao().getSongs()
 
